@@ -48,7 +48,7 @@ def move_space_object(body, dt):
     if body.type == 'planet':
         if len(objects) == 2:            
             with open('stats.txt', 'w') as out_file:
-            out_file.write(str((body.Vx**2 + body.Vy**2)**0.5) + ' ' + str(((body.x - star.x)**2 + (body.y - star.y)**2)**0.5) + ' ' + str(body.T)) 
+                out_file.write(str((body.Vx**2 + body.Vy**2)**0.5) + ' ' + str(((body.x - star.x)**2 + (body.y - star.y)**2)**0.5) + ' ' + str(body.T)) 
             
 
 def recalculate_space_objects_positions(space_objects, dt):
