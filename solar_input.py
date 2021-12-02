@@ -4,6 +4,7 @@
 from solar_objects import Star, Planet
 from solar_vis import DrawableObject
 
+
 def read_space_objects_data_from_file(input_filename):
     """Cчитывает данные о космических объектах из файла, создаёт сами объекты
     и вызывает создание их графических образов
@@ -61,6 +62,7 @@ def parse_star_parameters(line, star):
     star.Vx = float(line.split()[6])
     star.Vy = float(line.split()[7])
 
+
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
     Входная строка должна иметь слеюущий формат:
@@ -87,6 +89,7 @@ def parse_planet_parameters(line, planet):
     planet.Vx = float(line.split()[6])
     planet.Vy = float(line.split()[7])
 
+
 def write_space_objects_data_to_file(output_filename, space_objects):
     """Сохраняет данные о космических объектах в файл.
 
@@ -102,10 +105,12 @@ def write_space_objects_data_to_file(output_filename, space_objects):
 
     **space_objects** — список объектов планет и звёзд
     """
-    with open(output_filename, 'w') as out_file:
+    with open(output_filename, 'a') as out_file:
         for obj in space_objects:
-            out_file.write(obj.type.upper() + ' ' + str(obj.R) + ' ' + str(obj.color) + ' ' +str(obj.m) + ' ' +str(obj.x) + ' ' + str(obj.y) + ' ' + str(obj.Vx) + ' ' + str(obj.Vy))
-            
+            obj_type = obj.obj.type[0].upper() + obj.obj.type[1:]
+            out_file.write(obj_type + ' ' + str(obj.obj.R) + ' ' + str(obj.obj.color) + ' ' + str(obj.obj.m) + ' ' +
+                           str(obj.obj.x) + ' ' + str(obj.obj.y) + ' ' + str(obj.obj.Vx) + ' ' + str(obj.obj.Vy) + '\n')
+        out_file.write('\n')
 
 
 if __name__ == "__main__":
