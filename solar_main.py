@@ -61,7 +61,7 @@ def stop_execution():
     alive = False
 
 
-def open_file():
+def open_file_solar_system():
     """Открывает диалоговое окно выбора имени файла и вызывает
     функцию считывания параметров системы небесных тел из данного файла.
     Считанные объекты сохраняются в глобальный список space_objects
@@ -70,11 +70,46 @@ def open_file():
     global browser
     global model_time
 
+    scale = 0.5
     model_time = 0.0
     in_filename = "solar_system.txt"
     space_objects = read_space_objects_data_from_file(in_filename)
     max_distance = max([max(abs(obj.obj.x), abs(obj.obj.y)) for obj in space_objects])
-    calculate_scale_factor(max_distance)
+    calculate_scale_factor(scale, max_distance)
+
+
+def open_file_double_star():
+    """Открывает диалоговое окно выбора имени файла и вызывает
+    функцию считывания параметров системы небесных тел из данного файла.
+    Считанные объекты сохраняются в глобальный список space_objects
+    """
+    global space_objects
+    global browser
+    global model_time
+
+    scale = 0.1
+    model_time = 0.0
+    in_filename = "double_star.txt"
+    space_objects = read_space_objects_data_from_file(in_filename)
+    max_distance = max([max(abs(obj.obj.x), abs(obj.obj.y)) for obj in space_objects])
+    calculate_scale_factor(scale, max_distance)
+
+
+def open_file_one_satellite():
+    """Открывает диалоговое окно выбора имени файла и вызывает
+    функцию считывания параметров системы небесных тел из данного файла.
+    Считанные объекты сохраняются в глобальный список space_objects
+    """
+    global space_objects
+    global browser
+    global model_time
+
+    scale = 0.2
+    model_time = 0.0
+    in_filename = "one_satellite.txt"
+    space_objects = read_space_objects_data_from_file(in_filename)
+    max_distance = max([max(abs(obj.obj.x), abs(obj.obj.y)) for obj in space_objects])
+    calculate_scale_factor(scale, max_distance)
 
 
 def handle_events(events, menu):
@@ -96,25 +131,29 @@ def slider_reaction(event):
 
 def init_ui(screen):
     global browser
-    slider = thorpy.SliderX(100, (-10, 10), "Simulation speed")
+    slider = thorpy.SliderX(100, (0, 15), "Simulation speed")
     slider.user_func = slider_reaction
     button_stop = thorpy.make_button("Quit", func=stop_execution)
     button_pause = thorpy.make_button("Pause", func=pause_execution)
     button_play = thorpy.make_button("Play", func=start_execution)
     timer = thorpy.OneLineText("Seconds passed")
 
-    button_load = thorpy.make_button(text="Load a file", func=open_file)
+    button_load_solar_system = thorpy.make_button(text="Load a file of solar system", func=open_file_solar_system)
+    button_load_double_star = thorpy.make_button(text="Load a file of double star", func=open_file_double_star)
+    button_load_one_satellite = thorpy.make_button(text="Load a file of one satellite", func=open_file_one_satellite)
 
     box = thorpy.Box(elements=[
         slider,
         button_pause, 
         button_stop, 
         button_play, 
-        button_load,
+        button_load_solar_system,
+        button_load_double_star,
+        button_load_one_satellite,
         timer])
     reaction1 = thorpy.Reaction(reacts_to=thorpy.constants.THORPY_EVENT,
                                 reac_func=slider_reaction,
-                                event_args={"id":thorpy.constants.EVENT_SLIDE},
+                                event_args={"id": thorpy.constants.EVENT_SLIDE},
                                 params={},
                                 reac_name="slider reaction")
     box.add_reaction(reaction1)

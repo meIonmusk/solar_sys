@@ -25,10 +25,10 @@ scale_factor = 1
 Мера: количество пикселей на один метр."""
 
 
-def calculate_scale_factor(max_distance):
+def calculate_scale_factor(scale, max_distance):
     """Вычисляет значение глобальной переменной **scale_factor** по данной характерной длине"""
     global scale_factor
-    scale_factor = 0.5*min(window_height, window_width)/max_distance
+    scale_factor = scale*min(window_height, window_width)/max_distance
     print('Scale factor:', scale_factor)
 
 
