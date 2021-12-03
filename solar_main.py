@@ -5,6 +5,7 @@ from solar_vis import *
 from solar_model import *
 from solar_input import *
 from solar_objects import *
+from graphic import *
 import thorpy
 import time
 import numpy as np
@@ -27,6 +28,7 @@ time_scale = 1000.0
 space_objects = []
 """Список космических объектов."""
 
+# objects_v
 
 def execution(delta):
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
@@ -181,6 +183,8 @@ def main():
     global start_button
     global perform_execution
     global timer
+    global v
+    global r
 
     print('Modelling started!')
     physical_time = 0
@@ -194,6 +198,7 @@ def main():
     drawer = Drawer(screen)
     menu, box, timer = init_ui(screen)
     perform_execution = True
+    graphic_time = []
 
     while alive:
         handle_events(pg.event.get(), menu)
@@ -206,10 +211,11 @@ def main():
         last_time = cur_time
         drawer.update(space_objects, box)
         time.sleep(1.0 / 60)
+        # graphic_time.append(cur_time)
 
     print('Modelling finished!')
     write_space_objects_data_to_file('stats.txt', space_objects)
-
+    draw_graphics(v, r, model_time)
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,9 @@
 # coding: utf-8
 # license: GPLv3
 
+v = []
+r = []
+
 gravitational_constant = 6.67408E-11
 """Гравитационная постоянная Ньютона G"""
 
@@ -53,10 +56,17 @@ def recalculate_space_objects_positions(space_objects, dt):
 
     **dt** — шаг по времени
     """
+
+    global v, r
     for body in space_objects:
         calculate_force(body, space_objects)
     for body in space_objects:
         move_space_object(body, dt)
+        if body == space_objects[1]:
+            v.append((body.Vx**2+body.Vy**2)**0.5)
+            dx = body.x - space_objects[0].x
+            dy = body.y - space_objects[0].y
+            r.append((dx**2+dy**2)**0.5)
 
 
 if __name__ == "__main__":
