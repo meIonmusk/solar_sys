@@ -21,7 +21,7 @@ def draw_graphics(v, r, time):
 
     # subplot v(r)
     graph = plot.subplot(223)
-    plot.plot(t, v)
+    plot.plot(r, v)
     plot.title('v(r)')
     plot.xlabel('r, m')
     plot.ylabel('v, m/s')
